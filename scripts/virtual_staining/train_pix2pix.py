@@ -4,9 +4,9 @@ from collections import defaultdict
 import neptune as neptune
 import numpy as np
 import tensorflow as tf
-from cvdm.architectures.pix2pix import Discriminator, Generator
-from cvdm.utils.metrics_utils import calculate_metrics
-from cvdm.utils.training_utils import prepare_dataset
+from stardist.models.pix2pix import Discriminator, Generator
+from stardist.src.models.virtual_staining_metrics import calculate_metrics
+from stardist.src.data.virtual_staining_datasets import prepare_dataset
 from tqdm import tqdm
 
 tf.keras.utils.set_random_seed(42)
