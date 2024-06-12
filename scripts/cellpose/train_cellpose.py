@@ -3,8 +3,8 @@ from cellpose import io, models, train
 io.logger_setup()
 
 
-TRAIN_DIR = "/bigdata/casus/MLID/nips_benchmark/hela_cyto_cellpose/train"
-VAL_DIR = "/bigdata/casus/MLID/nips_benchmark/hela_cyto_cellpose/val"
+TRAIN_DIR = ""
+VAL_DIR = ""
 
 images, labels, image_names, test_images, test_labels, image_names_test = (
     io.load_train_test_data(
@@ -26,5 +26,5 @@ model_path = train.train_seg(
     test_labels=test_labels,
     n_epochs=300,
     save_every=5,
-    model_name="cyto_model_final",
+    model_name="",
 )

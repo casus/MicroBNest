@@ -3,9 +3,9 @@ import shutil
 
 from tqdm import tqdm
 
-source_dir_imgs = "/bigdata/casus/MLID/nips_benchmark/rb_images_normalized/half_res"
-source_dir_masks = "/bigdata/casus/MLID/nips_benchmark/hela_cyto_masks/half_res"
-target_dir = "/bigdata/casus/MLID/nips_benchmark/hela_cyto_cellpose"
+source_dir_imgs = ""
+source_dir_masks = ""
+target_dir = ""
 
 os.makedirs(target_dir, exist_ok=True)
 

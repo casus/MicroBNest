@@ -8,7 +8,7 @@ from stardist.src.data.virtual_staining_datasets import prepare_dataset
 from tqdm import tqdm
 
 pio.renderers.default = "iframe"
-BASE_PATH = "/home/wyrzyk93/DeepStain/outputs/weights/"
+BASE_PATH = ""
 
 
 def evaluate_model(generator, test_dataset):
@@ -48,39 +48,39 @@ def calculate_metrics_multiple_times(generator, test_dataset, runs=3):
 
 
 test_dataset, _ = prepare_dataset(
-    path="/bigdata/casus/MLID/maria/cyt_to_nuc/test", im_size=256, norm_type="minmax"
+    path="", im_size=256, norm_type="minmax"
 )
 test_dataset = test_dataset.batch(8)
 
 # Pix2pix
 generator = Generator()
-generator.load_weights(f"{BASE_PATH}best_model_f3619e47-0d44-4ba4-aac7-f56ee3ac77fc.h5")
+generator.load_weights(f"")
 
 results = calculate_metrics_multiple_times(generator, test_dataset)
 print(results)
 
 # UNet
 generator = Generator()
-generator.load_weights(f"{BASE_PATH}best_model_5a0b8dce-7a9c-4269-9434-16d9a11b9975.h5")
+generator.load_weights(f"")
 
 results = calculate_metrics_multiple_times(generator, test_dataset)
 print(results)
 
 test_dataset, _ = prepare_dataset(
-    path="/bigdata/casus/MLID/maria/nuc_to_cyt/test", im_size=256, norm_type="minmax"
+    path="", im_size=256, norm_type="minmax"
 )
 test_dataset = test_dataset.batch(8)
 
 # Pix2pix
 generator = Generator()
-generator.load_weights(f"{BASE_PATH}best_model_bdc72f48-7ffa-4c19-b5e9-ac545d14c90b.h5")
+generator.load_weights(f"")
 
 results = calculate_metrics_multiple_times(generator, test_dataset)
 print(results)
 
 # UNet
 generator = Generator()
-generator.load_weights(f"{BASE_PATH}best_model_3a930e03-f8a6-4fa0-964f-2c7a3905afd7.h5")
+generator.load_weights(f"")
 
 results = calculate_metrics_multiple_times(generator, test_dataset)
 print(results)

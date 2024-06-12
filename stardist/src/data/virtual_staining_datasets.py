@@ -58,7 +58,7 @@ def sample_norm_01_full_dataset(x: np.ndarray, type) -> np.ndarray:
 
 
 class NpyDataloader:
-    def __init__(self, path: str, im_size: int, random_jitter: bool, norm_type) -> None:
+    def __init__(self, path: str, im_size: int, random_jitter: bool, norm_type: str) -> None:
         self._x = sample_norm_01_full_dataset(
             np.load(f"{path}/x.npy", mmap_mode="r+"), norm_type
         )

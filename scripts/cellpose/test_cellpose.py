@@ -3,8 +3,8 @@ from stardist.matching import matching
 
 from cellpose import io, models
 
-TRAIN_DIR = "/bigdata/casus/MLID/nips_benchmark/hela_cyto_cellpose/train"
-TEST_DIR = "/bigdata/casus/MLID/nips_benchmark/hela_cyto_cellpose/test"
+TRAIN_DIR = ""
+TEST_DIR = ""
 
 
 output = io.load_train_test_data(
@@ -17,7 +17,7 @@ output = io.load_train_test_data(
 images, labels, image_names, test_images, test_labels, image_names_test = output
 
 model = models.CellposeModel(
-    pretrained_model="/home/wyrzyk93/DeepStain/models/cyto_model_final"
+    pretrained_model=""
 )
 
 masks_pred, flows, _ = model.eval(test_images, channels=[1, 3])

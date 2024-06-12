@@ -3,7 +3,7 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-PATH = Path("/bigdata/casus/MLID/nips_benchmark/hela_nuc_cellpose")
+PATH = Path("")
 
 
 def main():
