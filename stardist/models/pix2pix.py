@@ -49,11 +49,10 @@ def upsample(filters: int, size: int, apply_dropout: bool = False):
     return result
 
 
-def Generator(im_shape):
-    inputs = tf.keras.layers.Input(shape=[im_shape, im_shape, 1])
+def Generator():
+    inputs = tf.keras.layers.Input(shape=[256, 256, 1])
 
     down_stack = [
-        downsample(64, 4, apply_batchnorm=False),  # (batch_size, 128, 128, 64)
         downsample(64, 4, apply_batchnorm=False),  # (batch_size, 128, 128, 64)
         downsample(128, 4),  # (batch_size, 64, 64, 128)
         downsample(256, 4),  # (batch_size, 32, 32, 256)
@@ -65,7 +64,6 @@ def Generator(im_shape):
     ]
 
     up_stack = [
-        upsample(512, 4, apply_dropout=True),  # (batch_size, 2, 2, 1024)
         upsample(512, 4, apply_dropout=True),  # (batch_size, 2, 2, 1024)
         upsample(512, 4, apply_dropout=True),  # (batch_size, 4, 4, 1024)
         upsample(512, 4, apply_dropout=True),  # (batch_size, 8, 8, 1024)
@@ -105,11 +103,11 @@ def Generator(im_shape):
     return tf.keras.Model(inputs=inputs, outputs=x)
 
 
-def Discriminator(im_shape):
+def Discriminator():
     initializer = tf.random_normal_initializer(0.0, 0.02)
 
-    inp = tf.keras.layers.Input(shape=[im_shape, im_shape, 1], name="input_image")
-    tar = tf.keras.layers.Input(shape=[im_shape, im_shape, 1], name="target_image")
+    inp = tf.keras.layers.Input(shape=[256, 256, 1], name="input_image")
+    tar = tf.keras.layers.Input(shape=[256, 256, 1], name="target_image")
 
     x = tf.keras.layers.concatenate([inp, tar])  # (batch_size, 256, 256, channels*2)
 

@@ -7,9 +7,7 @@ from skimage.metrics import structural_similarity
 def peak_signal_noise_ratio(
     y_pred: np.ndarray, y_real: np.ndarray, data_range: float
 ) -> float:
-    if weights is None:
-        weights = np.ones_like(y_pred)
-    err = np.sum(weights * ((y_pred - y_real) ** 2)) / np.sum(weights)
+    err = np.mean(((y_pred - y_real) ** 2))
     return 10 * np.log10((data_range**2) / err)
 
 
