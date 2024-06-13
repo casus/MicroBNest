@@ -1,0 +1,227 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "HeLaCytoNuc_validation",
+  "description": "This dataset comprises fluorescence micrographs of HeLa cells, specifically labelled to identify nuclei and cell cytoplasm.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "10.14278/rodare.3001",
+  "datePublished": "2024-06-05 00:00:00",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "url": "https://rodare.hzdr.de/record/3001",
+  "version": "1.0.0",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "HeLaCytoNuc_validation.zip",
+      "name": "HeLaCytoNuc_validation",
+      "description": "HeLaCytoNuc dataset.",
+      "contentSize": "134M",
+      "contentUrl": "https://rodare.hzdr.de/record/3001/files/HeLaCytoNuc_validation.zip?download=1",
+      "encodingFormat": "application/zip",
+      "sha256": "37c4c0904db2146620d5f9b4df4c116768712dafead8c8008b38f249a034bc8b"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "image_files",
+      "name": "image_files",
+      "containedIn": {
+        "@id": "HeLaCytoNuc_validation.zip"
+      },
+      "encodingFormat": "image/tiff",
+      "includes": "images/*.tif"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "cytoplasm_mask_files",
+      "name": "cytoplasm_mask_files",
+      "containedIn": {
+        "@id": "HeLaCytoNuc_validation.zip"
+      },
+      "encodingFormat": "image/tiff",
+      "includes": "cytoplasm_masks/*.tif"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "nuclei_mask_files",
+      "name": "nuclei_mask_files",
+      "containedIn": {
+        "@id": "HeLaCytoNuc_validation.zip"
+      },
+      "encodingFormat": "image/tiff",
+      "includes": "nuclei_masks/*.tif"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "images",
+      "name": "images",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "images/filename",
+          "name": "filename",
+          "description": "The name of the image file.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "image_files"
+            },
+            "extract": {
+              "fileProperty": "filename"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "images/image",
+          "name": "image",
+          "description": "A 520 x 696 RGB uint8 image file, where the red channel represents the cytoplasm, the green channel is empty, and the blue channel represents the nuclei",
+          "dataType": "sc:ImageObject",
+          "source": {
+            "fileSet": {
+              "@id": "image_files"
+            },
+            "extract": {
+              "fileProperty": "content"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "cytoplasm_masks",
+      "name": "cytoplasm_masks",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "cytoplasm_masks/filename",
+          "name": "filename",
+          "description": "The name of the mask file",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "cytoplasm_mask_files"
+            },
+            "extract": {
+              "fileProperty": "filename"
+            }
+          },
+          "references": {
+            "field": {
+              "@id": "images/filename"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cytoplasm_masks/mask",
+          "name": "mask",
+          "description": "A 520 x 696 RGB uint8 instance segmentation mask, where 0 corresponds to background and 1, ..., n represent cytoplasm instances",
+          "dataType": [
+            "cr:SegmentationMask",
+            "sc:ImageObject"
+          ],
+          "source": {
+            "fileSet": {
+              "@id": "cytoplasm_mask_files"
+            },
+            "extract": {
+              "fileProperty": "content"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "nuclei_masks",
+      "name": "nuclei_masks",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "nuclei_masks/filename",
+          "name": "filename",
+          "description": "The name of the mask file",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "nuclei_mask_files"
+            },
+            "extract": {
+              "fileProperty": "filename"
+            }
+          },
+          "references": {
+            "field": {
+              "@id": "images/filename"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nuclei_masks/mask",
+          "name": "mask",
+          "description": "A 520 x 696 RGB uint8 instance segmentation mask, where 0 corresponds to background and 1, ..., n represent nuclei instances",
+          "dataType": [
+            "cr:SegmentationMask",
+            "sc:ImageObject"
+          ],
+          "source": {
+            "fileSet": {
+              "@id": "nuclei_mask_files"
+            },
+            "extract": {
+              "fileProperty": "content"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
